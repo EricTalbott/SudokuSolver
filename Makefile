@@ -1,4 +1,4 @@
-OBJS = sudoku.o puzzle.o firstrun.o secondrun.o thirdrun.o printers.o
+OBJS = sudoku.o puzzle.o firstrun.o secondrun.o thirdrun.o printers.o fourthrun.o
 CC = g++
 CFLAGS = -Wall -c
 
@@ -19,6 +19,9 @@ secondrun.o: secondrun.cpp sudoku.h
 
 thirdrun.o: thirdrun.cpp sudoku.h
 	$(CC) $(CFLAGS) thirdrun.cpp
+
+fourthrun.o: fourthrun.cpp sudoku.h
+	$(CC) $(CFLAGS) fourthrun.cpp
 
 printers.o: printers.cpp sudoku.h
 	$(CC) $(CFLAGS) printers.cpp

@@ -41,6 +41,9 @@ void checkUniquePossibilities(Cell *** &sudoku, int i, int j);
 void thirdRunThrough(Cell *** &sudoku);
 bool twinValuePossible(Cell *** &sudoku, int row, int col);
 
+void fourthRunThrough(Cell *** &sudoku);
+bool uniqueRowOrColumn(Cell *** &sudoku, int row, int col);
+
 //Mutators
 void removeImpossibleValue(Cell *** &sudoku, int row, int col, int value);
 void clearBox();

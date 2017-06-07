@@ -3,7 +3,10 @@
 
 boxMap box;
 
+#define PUZZLES 50
+
 //Initialization
+/*
 int ** createPuzzle(){
 	int **puzzle;
 	int array[9][9] = {
@@ -26,7 +29,7 @@ int ** createPuzzle(){
 		}
 	}
 	return puzzle;
-}
+}*/
 
 Cell *** setUpPuzzle(int ** puzzle){
 	Cell *** sudoku;
@@ -39,8 +42,6 @@ Cell *** setUpPuzzle(int ** puzzle){
 
 			sudoku[i][j]->number = puzzle[i][j];
 			
-			sudoku[i][j]->row = i;
-			sudoku[i][j]->col = j;
 			sudoku[i][j]->ID = id;
 			sudoku[i][j]->count = 0;
 			sudoku[i][j]->possible = new int[9];
@@ -57,6 +58,47 @@ Cell *** setUpPuzzle(int ** puzzle){
 	return sudoku;
 }
 
+int *** readFile (std::string fileName){
+	//int puzzleNum;
+	int array[PUZZLES][9][9];
+	char ch;
+	std::string gridString;
+	std::ifstream infile(fileName);
+
+	if (!infile) {
+		std::cout << "There was a problem opening file "
+		 	<< fileName
+		 	<< " for reading."
+		 	<< std::endl; 
+		 	return 0;
+	}
+
+	for(int i = 0; i < PUZZLES; i++){
+		getline(infile, gridString);
+		for(int j = 0; j < 9; j++){
+			for(int k = 0; k < 9; k++){
+				infile >> ch;
+				array[i][j][k] = ch - '0';
+			}
+		}
+		getline(infile, gridString);
+	}
+
+	infile.close(); 
+
+	int *** puzzle;
+	puzzle = (int***)malloc(sizeof(int**)*50);
+	for(int i = 0; i < PUZZLES; i++){
+		puzzle[i] = (int**)malloc(sizeof(int*)*9);
+		for(int j = 0; j < 9; j++){
+			puzzle[i][j] = (int*)malloc(sizeof(int)*9);
+			for(int k = 0; k < 9; k++)
+				puzzle[i][j][k] = array[i][j][k];
+		}
+	}
+	return puzzle;
+}
+
 //Mutators
 void removeImpossibleValue(Cell *** &sudoku, int row, int col, int value){
 	int cnt = sudoku[row][col]->count;
@@ -70,6 +112,10 @@ void removeImpossibleValue(Cell *** &sudoku, int row, int col, int value){
 		}
 	}
 	sudoku[row][col]->count = cnt;
+}
+
+void clearBox(){
+	box.clear();
 }
 
 //Setters

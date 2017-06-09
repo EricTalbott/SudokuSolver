@@ -43,16 +43,21 @@ Cell *** setUpPuzzle(int ** puzzle){
 			sudoku[i][j]->number = puzzle[i][j];
 			
 			sudoku[i][j]->ID = id;
-			sudoku[i][j]->count = 0;
 			sudoku[i][j]->possible = new int[9];
 			id++;
-
 			sudoku[i][j]->box = addToBox(puzzle[i][j], i, j);
 				
-			if(sudoku[i][j]->number != 0)
+			if(sudoku[i][j]->number != 0){
+				sudoku[i][j]->count = 0;
 				sudoku[i][j]->isSet = true;
-			else
+
+			}else{
 				sudoku[i][j]->isSet = false;
+				sudoku[i][j]->count = 9;
+				for(int x = 0; x < 9; x++){
+					sudoku[i][j]->possible[x] = (x + 1);
+				}
+			}
 		}
 	}
 	return sudoku;

@@ -1,3 +1,6 @@
+//Find every possible value for each cell, and if there is only 1 possible value, 
+//set it as the value for the cell. 
+
 #include "sudoku.h"
 
 void initialRunThrough(Cell *** &sudoku){ 
@@ -12,7 +15,7 @@ void initialRunThrough(Cell *** &sudoku){
 						//If only one possibility, set the Cell
 					if(sudoku[i][j]->count == 1){
 						setCellValue(sudoku, i, j);	
-						newValueSet = true;
+						initialRunThrough(sudoku);
 					}
 				}
 			}
@@ -33,7 +36,13 @@ void findPossibleValues(Cell *** &sudoku, int row, int col){
 			notPosCnt++;
 		}
 	}
+	int value;
 
+	for(int i = 0; i < notPosCnt; i++){
+		value = notPos[i];
+		removeImpossibleValue(sudoku, row, col, value);
+	}
+	/*
 	//Set the possible values
 	sudoku[row][col]->count = (9 - notPosCnt);
 	int current = 0;
@@ -45,5 +54,5 @@ void findPossibleValues(Cell *** &sudoku, int row, int col){
 			sudoku[row][col]->possible[current]=i;
 			current++;
 		}
-	}
+	}*/
 }

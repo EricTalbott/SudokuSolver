@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
+#include <cstdio>
 
 
 struct Cell{
@@ -43,6 +44,12 @@ bool twinValuePossible(Cell *** &sudoku, int row, int col);
 
 void fourthRunThrough(Cell *** &sudoku);
 bool uniqueRowOrColumn(Cell *** &sudoku, int row, int col);
+
+void fifthRunThrough(Cell *** &sudoku);
+bool uniqueRowColInBox(Cell *** &sudoku, int row, int col);
+
+void sixthRunThrough(Cell *** &sudoku);
+bool tripleValuePossible(Cell *** &sudoku, int row, int col);
 
 //Mutators
 void removeImpossibleValue(Cell *** &sudoku, int row, int col, int value);

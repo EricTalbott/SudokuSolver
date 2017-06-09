@@ -1,3 +1,6 @@
+//If there exists a number that is a unique 'possibility' within a row, column,
+//or box for a cell, then that number must the value of that cell.
+
 #include "sudoku.h"
 
 void nextRunThrough(Cell *** &sudoku){

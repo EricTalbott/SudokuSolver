@@ -1,3 +1,7 @@
+//If two cells within the same row, column or box contain 2 possibilities that
+//are the same, then those two numbers cannot exist anywhere else within that
+//row, column or box respectively. 
+
 #include "sudoku.h"
 
 void thirdRunThrough(Cell *** &sudoku){

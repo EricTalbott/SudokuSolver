@@ -135,6 +135,12 @@ void setCellValue(Cell *** &sudoku, int row, int col){
 	sudoku[row][col]->isSet = true;
 }
 
+void setCellValueGAC(Cell *** &sudoku, int row, int col, int pos){
+	sudoku[row][col]->number = sudoku[row][col]->possible[pos];
+	sudoku[row][col]->box = addToBox(sudoku[row][col]->number, row, col);
+	sudoku[row][col]->isSet = true;
+}
+
 int addToBox(int number, int i, int j){
 	if(i < 3){
 		if(j < 3){

@@ -51,6 +51,10 @@ bool uniqueRowColInBox(Cell *** &sudoku, int row, int col);
 void sixthRunThrough(Cell *** &sudoku);
 bool tripleValuePossible(Cell *** &sudoku, int row, int col);
 
+void lastResort(Cell *** &sudoku);
+//bool guessAndCheck(Cell *** sudoku, int row, int col);
+
+
 //Mutators
 void removeImpossibleValue(Cell *** &sudoku, int row, int col, int value);
 void clearBox();
@@ -66,5 +70,6 @@ bool columnContains(Cell *** sudoku, int value, int column);
 
 //Setters
 void setCellValue(Cell *** &sudoku, int row, int col);
+void setCellValueGAC(Cell *** &sudoku, int row, int col, int pos);
 void setPossibleValue(int value, int* &poss, int &count);
 int addToBox(int number, int i, int j);

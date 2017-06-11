@@ -13,7 +13,7 @@ int main()
 
     start = std::clock();
 
-	for(int i = 0; i < 1; i++){
+	for(int i = 0; i < 50; i++){
 
 		Cell *** allCells;
 		std::cout << "Puzzle #"  << (i+1) <<": ";
@@ -21,9 +21,9 @@ int main()
 
 		//puzzles[i] = makePrintablePuzzle(allCells);
 		//printPuzzle(puzzles[i]);
-/*
-		initialRunThrough(allCells);
 
+		initialRunThrough(allCells);
+/*
 		if(puzzleSolved(allCells) != true)	
 			nextRunThrough(allCells);
 		
@@ -39,7 +39,6 @@ int main()
 		if(puzzleSolved(allCells) != true)
 			sixthRunThrough(allCells);
 */
-
 		if(!puzzleSolved(allCells))
 			lastResort(allCells);
 

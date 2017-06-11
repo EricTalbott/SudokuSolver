@@ -52,8 +52,8 @@ void sixthRunThrough(Cell *** &sudoku);
 bool tripleValuePossible(Cell *** &sudoku, int row, int col);
 
 void lastResort(Cell *** &sudoku);
-//bool guessAndCheck(Cell *** sudoku, int row, int col);
-
+bool guessAndCheck(Cell *** &sudoku, int row, int col);
+Cell *** createTemporary(Cell *** sudoku);
 
 //Mutators
 void removeImpossibleValue(Cell *** &sudoku, int row, int col, int value);

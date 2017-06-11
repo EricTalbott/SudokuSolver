@@ -1,27 +1,23 @@
 //If a set of three numbers (and only three numbers) exists in exactly
 //three locations on any row, column or box, then those three numbers cannot
-//exist in any other location within that row, column or box. 
+//exist in any other location within that row, column or box.
 
 #include "sudoku.h"
 
 void sixthRunThrough(Cell *** &sudoku){
 	bool newValueSet;
-	do{ 
+	do{
 		newValueSet = false;
 		for (int i = 0; i < 9; i++){
 			for (int j = 0; j < 9; j++){
 				if(!sudoku[i][j]->isSet){
 					if(tripleValuePossible(sudoku, i, j)){
-						nextRunThrough(sudoku);	
+						nextRunThrough(sudoku);
 						newValueSet = true;
 					}
-
-
-
-
 				}
 			}
-		}		
+		}
 		if(puzzleSolved(sudoku)) break;
 
 	}while(newValueSet);
@@ -45,7 +41,7 @@ bool tripleValuePossible(Cell *** &sudoku, int row, int col){
 
 	if(cnt == 3){
 		values = new int[cnt];
-		
+
 		for(int i = 0; i < cnt; i++)
 			values[i] = sudoku[row][col]->possible[i];
 
@@ -59,12 +55,12 @@ bool tripleValuePossible(Cell *** &sudoku, int row, int col){
 						if(values[i] != sudoku[r][col]->possible[i]){
 							notTwin = true;
 							break;
-						}  
+						}
 					}
 					if(!notTwin){
 						locations[twins] = r;
 						twins++;
-					} 			
+					}
 				}
 				else if(sudoku[r][col]->count == 2){
 					int loc = 0;
@@ -81,7 +77,7 @@ bool tripleValuePossible(Cell *** &sudoku, int row, int col){
 				}
 			}
 			if(twins == 2) break;
-		}	
+		}
 		if(twins == 2){
 			for(int r = 0; r < 9; r++){
 				if(!(sudoku[r][col]->isSet) && r != row && r != locations[0] && r != locations[1]){
@@ -97,7 +93,7 @@ bool tripleValuePossible(Cell *** &sudoku, int row, int col){
 		}
 
 		twins = 0;
-		
+
 		//Check Row
 		for(int c = 0; c < 9; c++){
 			if(!(sudoku[row][c]->isSet) && c != col){
@@ -108,12 +104,12 @@ bool tripleValuePossible(Cell *** &sudoku, int row, int col){
 						if(values[i] != sudoku[row][c]->possible[i]){
 							notTwin = true;
 							break;
-						}  
+						}
 					}
 					if(!notTwin){
 						locations[twins] = c;
 						twins++;
-					} 			
+					}
 				}
 				else if(sudoku[row][c]->count == 2){
 					int loc = 0;
@@ -158,12 +154,12 @@ bool tripleValuePossible(Cell *** &sudoku, int row, int col){
 							if(values[i] != sudoku[r][c]->possible[i]){
 								notTwin = true;
 								break;
-							}  
+							}
 						}
 						if(!notTwin){
 							locations[twins] = sudoku[r][c]->ID;
 							twins++;
-						} 			
+						}
 					}
 					else if(sudoku[r][c]->count == 2){
 						int loc = 0;
@@ -183,7 +179,7 @@ bool tripleValuePossible(Cell *** &sudoku, int row, int col){
 			}
 			if(twins == 2) break;
 		}
-		
+
 		int id;
 		if(twins == 2){
 			for(int r = 0; r < 9; r++){
@@ -208,10 +204,3 @@ bool tripleValuePossible(Cell *** &sudoku, int row, int col){
 	return changes;
 
 }
-
-
-
-
-
-
-

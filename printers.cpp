@@ -38,19 +38,3 @@ void printPossibilities(Cell *** sudoku){
   		std::cout << '\n';
 		}
 }
-/*
-void printBox(){
-	mapIter m_it, s_it;
-
-	for(m_it = box.begin(); m_it != box.end(); m_it = s_it){
-		int key = (*m_it).first;
-
-		std::cout << "Box " << key << ": ";
-
-		std::pair<mapIter, mapIter> keyRange = box.equal_range(key);
-		for(s_it = keyRange.first; s_it != keyRange.second; s_it++)
-			std::cout << (*s_it).second << "  ";
-
-		std::cout << std::endl;
-	}
-}*/

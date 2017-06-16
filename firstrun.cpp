@@ -1,12 +1,12 @@
-//Find every possible value for each cell, and if there is only 1 possible value, 
-//set it as the value for the cell. 
+//Find every possible value for each cell, and if there is only 1 possible value,
+//set it as the value for the cell.
 
 #include "sudoku.h"
 
-void initialRunThrough(Cell *** &sudoku){ 
+void initialRunThrough(Cell *** &sudoku){
 	bool newValueSet;
 
-	do{ 
+	do{
 		newValueSet = false;
 		for (int i = 0; i < 9; i++){
 			for (int j = 0; j < 9; j++){
@@ -14,7 +14,7 @@ void initialRunThrough(Cell *** &sudoku){
 					findPossibleValues(sudoku, i, j);
 						//If only one possibility, set the Cell
 					if(sudoku[i][j]->count == 1){
-						setCellValue(sudoku, i, j);	
+						setCellValue(sudoku, i, j);
 						initialRunThrough(sudoku);
 					}
 				}
@@ -42,17 +42,4 @@ void findPossibleValues(Cell *** &sudoku, int row, int col){
 		value = notPos[i];
 		removeImpossibleValue(sudoku, row, col, value);
 	}
-	/*
-	//Set the possible values
-	sudoku[row][col]->count = (9 - notPosCnt);
-	int current = 0;
-
-	int *finder;
-	for(int i = 1; i <= 9; i++){
-		finder = std::find(std::begin(notPos), std::end(notPos), i);
-		if(finder == std::end(notPos)){
-			sudoku[row][col]->possible[current]=i;
-			current++;
-		}
-	}*/
 }

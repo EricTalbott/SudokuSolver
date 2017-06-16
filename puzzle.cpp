@@ -41,12 +41,12 @@ Cell *** setUpPuzzle(int ** puzzle){
 			sudoku[i][j] = (Cell*)malloc(sizeof(Cell));
 
 			sudoku[i][j]->number = puzzle[i][j];
-			
+
 			sudoku[i][j]->ID = id;
 			sudoku[i][j]->possible = new int[9];
 			id++;
 			sudoku[i][j]->box = addToBox(puzzle[i][j], i, j);
-				
+
 			if(sudoku[i][j]->number != 0){
 				sudoku[i][j]->count = 0;
 				sudoku[i][j]->isSet = true;
@@ -63,6 +63,30 @@ Cell *** setUpPuzzle(int ** puzzle){
 	return sudoku;
 }
 
+
+Cell *** createCopy(Cell *** sudoku){
+	Cell*** temporary;
+
+	temporary = (Cell***)malloc(sizeof(Cell**)*9);
+	for(int i = 0; i < 9; i++){
+		temporary[i] = (Cell**)malloc(sizeof(Cell*)*9);
+		for(int j = 0; j < 9; j++){
+			temporary[i][j] = (Cell*)malloc(sizeof(Cell));
+
+			temporary[i][j]->number = sudoku[i][j]->number;
+			temporary[i][j]->isSet = sudoku[i][j]->isSet;
+			temporary[i][j]->ID = sudoku[i][j]->ID;
+			temporary[i][j]->box = addToBox(sudoku[i][j]->number, i, j);
+			temporary[i][j]->count = sudoku[i][j]->count;
+			temporary[i][j]->possible = new int[temporary[i][j]->count];
+			for(int x = 0; x < temporary[i][j]->count; x++){
+				temporary[i][j]->possible[x] = sudoku[i][j]->possible[x];
+			}
+		}
+	}
+	return temporary;
+}
+
 int *** readFile (std::string fileName){
 	//int puzzleNum;
 	int array[PUZZLES][9][9];
@@ -74,7 +98,7 @@ int *** readFile (std::string fileName){
 		std::cout << "There was a problem opening file "
 		 	<< fileName
 		 	<< " for reading."
-		 	<< std::endl; 
+		 	<< std::endl;
 		 	return 0;
 	}
 
@@ -89,7 +113,7 @@ int *** readFile (std::string fileName){
 		getline(infile, gridString);
 	}
 
-	infile.close(); 
+	infile.close();
 
 	int *** puzzle;
 	puzzle = (int***)malloc(sizeof(int**)*50);
@@ -107,7 +131,7 @@ int *** readFile (std::string fileName){
 //Mutators
 void removeImpossibleValue(Cell *** &sudoku, int row, int col, int value){
 	int cnt = sudoku[row][col]->count;
-	
+
 	for(int i = 0; i < cnt; i++){
 		if(sudoku[row][col]->possible[i] == value){
 			for(int j = i; j < cnt; j++){
@@ -160,7 +184,7 @@ int addToBox(int number, int i, int j){
 		if(j < 3){
 			if(number != 0)
 				box.insert(std::pair<int, int>(3,number));
-			return 3;	
+			return 3;
 		}else if(j < 6){
 			if(number != 0)
 				box.insert(std::pair<int, int>(4,number));
@@ -184,7 +208,7 @@ int addToBox(int number, int i, int j){
 				box.insert(std::pair<int, int>(8,number));
 			return 8;
 		}
-	}	
+	}
 }
 
 //Bool Operations (Checkers)
@@ -199,7 +223,7 @@ bool puzzleSolved(Cell *** sudoku){
 		}
 	}
 	if(solved == 81) return true;
-	
+
 	return false;
 }
 
@@ -211,11 +235,11 @@ bool visibleVectorContains(Cell *** sudoku, int boxNum, int value, int id, int r
 
 	for(int rw = 0; rw < 9; rw++){
 		for (int col = 0; col < 9; col++){
-			if((!(sudoku[rw][col]->isSet)) && (sudoku[rw][col]->ID != id)){	
-				if(rw == row){		
+			if((!(sudoku[rw][col]->isSet)) && (sudoku[rw][col]->ID != id)){
+				if(rw == row){
 					if(VectorContains(sudoku, rw, col, value)) rowContains = true;
-				}		
-				
+				}
+
 				if(col == column){
 					if(VectorContains(sudoku, rw, col, value)) colContains = true;
 		  		}
@@ -232,7 +256,7 @@ bool visibleVectorContains(Cell *** sudoku, int boxNum, int value, int id, int r
 bool VectorContains(Cell *** sudoku, int rw, int col, int value){
 	bool contains = false;
 	for (int i = 0 ; i < sudoku[rw][col]->count; i++){
-		if(value == sudoku[rw][col]->possible[i]){ 
+		if(value == sudoku[rw][col]->possible[i]){
 		    contains = true;
 		}
 	}
@@ -259,7 +283,7 @@ bool rowContains(Cell *** sudoku, int value, int row){
 			if(checkVal == value) return true;
 		}
 	}
-	return false;	
+	return false;
 }
 
 //Return True if a given value is contained in a given column. Returns false if not.
@@ -272,5 +296,24 @@ bool columnContains(Cell *** sudoku, int value, int column){
 			if(checkVal == value) return true;
 		}
 	}
-	return false;	
+	return false;
+}
+
+
+
+
+void printBox(){
+	mapIter m_it, s_it;
+
+	for(m_it = box.begin(); m_it != box.end(); m_it = s_it){
+		int key = (*m_it).first;
+
+		std::cout << "Box " << key << ": ";
+
+		std::pair<mapIter, mapIter> keyRange = box.equal_range(key);
+		for(s_it = keyRange.first; s_it != keyRange.second; s_it++)
+			std::cout << (*s_it).second << "  ";
+
+		std::cout << std::endl;
+	}
 }

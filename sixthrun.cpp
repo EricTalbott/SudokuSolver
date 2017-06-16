@@ -190,7 +190,6 @@ bool tripleValuePossible(Cell *** &sudoku, int row, int col){
 							int current = sudoku[r][c]->count;
 							removeImpossibleValue(sudoku, r, c, values[i]);
 							if(current != sudoku[r][c]->count){
-								std::cout<< r << c <<std::endl;
 								changes = true;
 							}
 						}

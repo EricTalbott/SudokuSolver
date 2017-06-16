@@ -5,22 +5,20 @@
 
 void fifthRunThrough(Cell *** &sudoku){
 	bool newValueSet;
-	
-	do{ 
+
+	do{
 		newValueSet = false;
 		for (int i = 0; i < 9; i++){
 			for (int j = 0; j < 9; j++){
-				if(!sudoku[i][j]->isSet){					
+				if(!sudoku[i][j]->isSet){
 					if(uniqueRowColInBox(sudoku, i, j)){
-						//std::cout<<i << j <<std::endl;
-						//break;
 						initialRunThrough(sudoku);
 						thirdRunThrough(sudoku);
 						newValueSet = true;
 					}
 				}
 			}
-		}		
+		}
 		if(puzzleSolved(sudoku)) break;
 
 	}while(newValueSet);
@@ -28,21 +26,21 @@ void fifthRunThrough(Cell *** &sudoku){
 }
 
 bool uniqueRowColInBox(Cell *** &sudoku, int row, int col){
-	
+
 	int size = sudoku[row][col]->count;
 	int id = sudoku[row][col]->ID;
 	int boxNum = sudoku[row][col]->box;
 	int value;
 	int cnt;
 	bool rowContains = false,
-		colContains = false, 
+		colContains = false,
 		changed = false;
 
 	for(int x = 0; x < size; x++){
 		rowContains = false;
 		colContains = false;
 		value = sudoku[row][col]->possible[x];
-		
+
 		for(int r = 0; r < 9; r++){
 			if(sudoku[r][col]->box != boxNum){
 				if(VectorContains(sudoku, r, col, value)){
@@ -73,7 +71,7 @@ bool uniqueRowColInBox(Cell *** &sudoku, int row, int col){
 						}
 					}
 				}
-			}	
+			}
 		}
 
 		if(!colContains){
@@ -87,12 +85,11 @@ bool uniqueRowColInBox(Cell *** &sudoku, int row, int col){
 							if(cnt != sudoku[r][c]->count)
 								changed = true;
 						}
-					
+
 					}
 				}
-			}		
+			}
 		}
 	}
 	return changed;
 }
-

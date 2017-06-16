@@ -89,7 +89,16 @@ Cell *** createCopy(Cell *** sudoku){
 
 int *** readFile (std::string fileName){
 	//int puzzleNum;
-	int array[PUZZLES][9][9];
+	int*** array;
+	array = (int***)malloc(sizeof(int**)*PUZZLES);
+
+	for(int i = 0; i < PUZZLES; i++){
+		array[i] = (int**)malloc(sizeof(int*)*9);
+		for(int j = 0; j < 9; j++){
+			array[i][j] = (int*)malloc(sizeof(int)*9);
+		}
+	}
+
 	char ch;
 	std::string gridString;
 	std::ifstream infile(fileName);
@@ -301,7 +310,7 @@ bool columnContains(Cell *** sudoku, int value, int column){
 
 
 
-
+/*
 void printBox(){
 	mapIter m_it, s_it;
 
@@ -317,3 +326,4 @@ void printBox(){
 		std::cout << std::endl;
 	}
 }
+*/

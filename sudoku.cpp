@@ -1,6 +1,8 @@
 #include "sudoku.h"
 #include <ctime>
 
+#define PUZZLES 50
+
 int main()
 {
 	int ***puzzles;
@@ -13,19 +15,12 @@ int main()
 
     start = std::clock();
 
-	for(int i = 0; i < 50; i++){
+	for(int i = 0; i < PUZZLES; i++){
 
 		Cell *** allCells;
-		std::cout << "Puzzle #"  << (i+1) <<": ";
 		allCells = setUpPuzzle(puzzles[i]);
 
-	//	puzzles[i] = makePrintablePuzzle(allCells);
-	//	printPuzzle(puzzles[i]);
-
 		initialRunThrough(allCells);
-
-	//	puzzles[i] = makePrintablePuzzle(allCells);
-	//	printPuzzle(puzzles[i]);
 
 		if(puzzleSolved(allCells) != true)
 			nextRunThrough(allCells);
@@ -47,14 +42,9 @@ int main()
 
 		if(puzzleSolved(allCells)){
 			solved++;
-			std::cout << "SOLVED!" << std::endl;
-//			puzzles[i] = makePrintablePuzzle(allCells);
-//			printPuzzle(puzzles[i]);
 		}else{
+			std::cout << "#"  << (i+1) <<", ";
 			std::cout << "***NOT SOLVED!***" << std::endl;
-	//		puzzles[i] = makePrintablePuzzle(allCells);
-	//		printPuzzle(puzzles[i]);
-		//	printPossibilities(allCells);
 		}
 
 		clearBox();
@@ -64,6 +54,6 @@ int main()
 	duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
     std::cout<<"Time: "<< duration <<'\n';
 	 std::cout<< "Solved = " << solved <<std::endl
-			 << "Unsolved = " << (50 - solved) << std::endl;
+			 << "Unsolved = " << (PUZZLES - solved) << std::endl;
 	return 0;
 }

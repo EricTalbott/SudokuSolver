@@ -87,6 +87,10 @@ Cell *** createCopy(Cell *** sudoku){
 	return temporary;
 }
 
+void functionthing(){
+	return;
+}
+
 int *** readFile (std::string fileName){
 	//int puzzleNum;
 	int*** array;
